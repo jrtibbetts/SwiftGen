@@ -181,6 +181,7 @@ models:
         typeName: "Int16"
         userInfo:
           rawType: "IntegerEnum"
+          unwrapOptional: true
         usesScalarValueType: true
       - customClassName: ""
         isIndexed: false
