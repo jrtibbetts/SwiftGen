@@ -22,13 +22,8 @@ public enum Yaml {
 
   // MARK: Yaml File Parser
 
-  public class Parser: SwiftGenKit.Parser {
+  public class Parser: DefaultParser, SwiftGenKit.Parser {
     var files: [File] = []
-    public var warningHandler: Parser.MessageHandler?
-
-    public required init(options: [String: Any] = [:], warningHandler: Parser.MessageHandler? = nil) {
-      self.warningHandler = warningHandler
-    }
 
     public class var defaultFilter: String {
       return "[^/]\\.(?i:ya?ml)$"

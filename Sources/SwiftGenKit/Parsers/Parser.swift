@@ -24,6 +24,14 @@ public protocol Parser {
   var warningHandler: MessageHandler? { get set }
 }
 
+public class DefaultParser: NSObject {
+  public var warningHandler: Parser.MessageHandler?
+
+  public required init(options: [String: Any] = [:], warningHandler: Parser.MessageHandler? = nil) {
+    self.warningHandler = warningHandler
+  }
+}
+
 public extension Parser {
   func searchAndParse(paths: [Path], filter: Filter) throws {
     for path in paths {

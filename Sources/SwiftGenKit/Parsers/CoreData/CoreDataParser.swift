@@ -31,13 +31,8 @@ public enum CoreData {
     static let contentsFile = "contents"
   }
 
-  public final class Parser: SwiftGenKit.Parser {
-    public var warningHandler: Parser.MessageHandler?
+  public final class Parser: DefaultParser, SwiftGenKit.Parser {
     var models: [Model] = []
-
-    public init(options: [String: Any] = [:], warningHandler: Parser.MessageHandler? = nil) {
-      self.warningHandler = warningHandler
-    }
 
     public static let defaultFilter = "[^/]\\.xcdatamodeld?$"
 

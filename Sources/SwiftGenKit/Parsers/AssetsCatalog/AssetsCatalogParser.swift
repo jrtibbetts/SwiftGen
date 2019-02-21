@@ -8,13 +8,8 @@ import Foundation
 import PathKit
 
 public enum AssetsCatalog {
-  public final class Parser: SwiftGenKit.Parser {
+  public final class Parser: DefaultParser, SwiftGenKit.Parser {
     var catalogs = [Catalog]()
-    public var warningHandler: Parser.MessageHandler?
-
-    public init(options: [String: Any] = [:], warningHandler: Parser.MessageHandler? = nil) {
-      self.warningHandler = warningHandler
-    }
 
     public static let defaultFilter = "[^/]\\.xcassets$"
 

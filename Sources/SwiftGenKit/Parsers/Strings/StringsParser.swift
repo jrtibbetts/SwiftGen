@@ -32,14 +32,13 @@ public enum Strings {
     static let separator = "separator"
   }
 
-  public final class Parser: SwiftGenKit.Parser {
+  public final class Parser: DefaultParser, SwiftGenKit.Parser {
     var tables = [String: [Entry]]()
-    public var warningHandler: Parser.MessageHandler?
     private let keyStructureSeparator: String
 
-    public init(options: [String: Any] = [:], warningHandler: Parser.MessageHandler? = nil) {
-      self.warningHandler = warningHandler
+    public required init(options: [String: Any] = [:], warningHandler: Parser.MessageHandler? = nil) {
       self.keyStructureSeparator = (options[Option.separator] as? String) ?? Entry.defaultSeparator
+      super.init(options: options, warningHandler: warningHandler)
     }
 
     public static let defaultFilter = "[^/]\\.strings$"
