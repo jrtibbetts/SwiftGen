@@ -17,14 +17,26 @@ public protocol Parser {
   func parse(path: Path, relativeTo parent: Path) throws
   func stencilContext() -> [String: Any]
 
-  /// This callback will be called when a Parser want to emit a diagnostics message
-  /// You can set this on the usage-site to a closure that prints the diagnostics in any way you see fit
-  /// Arguments are (message, file, line)
-  typealias MessageHandler = (String, String, UInt) -> Void
+  /// This callback will be called when a Parser wants to emit a diagnostic
+  /// message. Set this on the usage-site to a closure that prints the
+  /// diagnostics in any way you see fit.
+  ///
+  /// - parameter message: The warning message.
+  /// - parameter file: The filename.
+  /// - parameter line: The line number associated with the warning.
+  typealias MessageHandler = (_ message: String, _ file: String, _ line: UInt) -> Void
+
+  /// A closure that prints a warning message.
   var warningHandler: MessageHandler? { get set }
 }
 
+/// Base class for parsers. Note that it cannot implement `SwiftGenKit.Parser`
+/// _itself_, because it cannot provide any meaningful default
+/// `parse(path: Path, relativeTo parent: Path)` implementation. Instead, the
+/// various parsers should extend the base class _and_ implement the
+/// `SwiftGenKit.Parser` protocol.
 public class DefaultParser: NSObject {
+  /// A closure that prints a warning message.
   public var warningHandler: Parser.MessageHandler?
 
   public required init(options: [String: Any] = [:], warningHandler: Parser.MessageHandler? = nil) {
